@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignment 3</title>
+</head>
+<body>
+    <form action="https://api.tvmaze.com/search/shows">
+        <input id="query" name="q" type="text">
+        <button type="submit">Search</button>
+    </form>
+    <div id="results"></div>
+    <script>
+        document.querySelector('form').addEventListener('submit', async () => {
+            event.preventDefault();
+            const params = {
+                q: `${document.querySelector('#query').value}`
+            }
+            fetch(`https://api.tvmaze.com/search/shows?${new URLSearchParams(params).toString()}`, {
+                method: "GET"
+            })
+            .then( async (result) => {
+                try {
+                    const jsonData = await result.json()
+                    console.log(jsonData)
+                    let elements = ''
+                    jsonData.forEach(show => {
+                        elements += `
+                            <h2>${show.show.name}</h2>
+                            <a href="${show.show.url}">${show.show.url}</a>
+                            <img src="${show.show.image?.medium}" alt="${show.show.name}"></img>
+                            <div>
+                                ${show.show.summary}
+                            </div>
+                        `
+                    })
+                    document.querySelector('#results').innerHTML = `
+                        <article>${elements}</article>
+                    `
+                } catch (error) {
+                    console.error(error.message)
+                }
+            }).catch((error) => {
+                console.error(error)
+            })
+        })
+    </script>
+</body>
+</html>
