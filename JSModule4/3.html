@@ -28,7 +28,7 @@
                     jsonData.forEach(show => {
                         elements += `
                             <h2>${show.show.name}</h2>
-                            <a href="${show.show.url}">${show.show.url}</a>
+                            <a href="${show.show.url}" target='_blank'>${show.show.url}</a>
                             <img src="${show.show.image?.medium}" alt="${show.show.name}"></img>
                             <div>
                                 ${show.show.summary}
