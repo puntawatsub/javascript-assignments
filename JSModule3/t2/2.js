@@ -4,6 +4,7 @@ const thirdItem = document.createElement("li");
 
 firstItem.innerHTML += "First item";
 secondItem.innerHTML += "Second item";
+secondItem.classList.add("my-item");
 thirdItem.innerHTML += "Third item";
 
 document.querySelector("#target").appendChild(firstItem);
